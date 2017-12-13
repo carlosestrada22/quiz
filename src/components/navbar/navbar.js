@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Sidenav from '../sidenav/sidenav.js';
 
 class Navbar extends Component {
     constructor(props) {
@@ -10,24 +11,30 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div id="navbar" className="navbar">
+            <div id="navbar" className="navbar ">
                 <ul id="dropdown1" className="dropdown-content">
-                    <li><a href="#!">one</a></li>
+                    <li><a href="#!" onClick={this.props.reRender}>Reiniciar</a></li>
                     <li><a href="#!">two</a></li>
                     <li className="divider"></li>
                     <li><a href="#!">three</a></li>
                 </ul>
-                <nav>
+                <nav className="blue darken-3">
                     <div className="nav-wrapper">
-                        <a href="#!" className="brand-logo">Logo</a>
-                        <ul className="right hide-on-med-and-down">
-                            <li><a href="sass.html">Sass</a></li>
-                            <li><a href="badges.html">Components</a></li>
-                            <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i className="material-icons right">arrow_drop_down</i></a></li>
+                        <div className="show-on-medium-and-up">
+                            <Sidenav $={this.props.$} />
+                        </div>
+                        <a href="#!" className="brand-logo center">RAPEM</a>
+                        <ul className="right ">
+                            <li>
+                                <a className="dropdown-button" href="#!" data-activates="dropdown1">
+                                    <i className="material-icons right">more_vert</i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
             </div>
+
         )
     }
 }
