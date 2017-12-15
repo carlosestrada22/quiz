@@ -26,7 +26,6 @@ class Pregunta extends Component {
     componentDidMount() {
         this.setState({ Questions: this.props.Preguntas })
         this.setState({ Actual: this.state.Questions.shift() })
-        console.log(this.state)
     }
     render() {
         return (

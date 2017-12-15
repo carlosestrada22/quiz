@@ -27,7 +27,6 @@ const getRndWords = size => {
     let newWords = []
     for (let i = 0; i < size; i++) {
         newWords.push(words[getRndInteger(0, words.length - 1)])
-        //words[i].Pregunta = "Qué tal, lokis?"
     }
     return newWords
 }
