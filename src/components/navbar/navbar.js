@@ -21,16 +21,16 @@ class Navbar extends Component {
                 <nav className="blue darken-3">
                     <div className="nav-wrapper">
                         <div className="show-on-medium-and-up">
-                            <Sidenav $={this.props.$} />
+                            <Sidenav $={this.props.$} PerfilFb={this.props.PerfilFb}/>
                         </div>
                         <a href="#!" className="brand-logo center">RAPEM</a>
-                        <ul className="right ">
+                        {/* <ul className="right ">
                             <li>
                                 <a className="dropdown-button" href="#!" data-activates="dropdown1">
                                     <i className="material-icons right">more_vert</i>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
                 </nav>
             </div>
@@ -39,14 +39,14 @@ class Navbar extends Component {
     }
 }
 const loguear = (axios) => {
-    axios.get(`http://${window.location.hostname}:3000/test`)
+    axios.get(`http://${window.location.hostname}:3000/test`, {withCredentials: true})
         .then(res => {
             console.log(res)
         });
 }
 
 const nuevaVentana = (axios) => {
-    axios.get(`http://${window.location.hostname}:3000/auth/facebook`)
+    axios.get(`http://${window.location.hostname}:3000/auth/facebook`, {withCredentials: true})
         .then(res => {
             console.log(res)
         });

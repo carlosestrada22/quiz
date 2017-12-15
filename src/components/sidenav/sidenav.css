@@ -1,0 +1,7 @@
+.barra-lateral {
+    color: #000000;
+}
+
+#btn-barra-lateral {
+    display: block !important;
+}
