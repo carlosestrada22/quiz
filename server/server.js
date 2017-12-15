@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/questions', (req, res) => {
-    res.send(getRndQuestions(20))
+    res.send(getRndQuestions(3))
 })
 
 app.listen(3008, () => {
@@ -36,10 +36,10 @@ const getRndQuestions = size => {
     let wordAux = getRndWords(size)
     let newWords = []
     let res = []
-    newWords = wordAux.slice(0, 20).concat(wordAux.slice(0, 20).concat(wordAux.slice(0, 20)))
+    newWords = wordAux.slice(0, size).concat(wordAux.slice(0, size).concat(wordAux.slice(0, size)))
     for (let i = 0; i < newWords.length; i++) {
         let newObj = {
-            Pregunta: questions[getPregunta(i)],
+            Pregunta: questions[getPregunta(i, size)],
             Palabra: newWords[i].Palabra,
             Flibros: newWords[i].Flibros,
             Fsubtitulos: newWords[i].Fsubtitulos,
@@ -50,8 +50,8 @@ const getRndQuestions = size => {
 
     return res
 }
-const getPregunta = (i) => {
-    if (i < 20) return 0
-    if (i >= 20 && i < 40) return 1
-    if (i >= 40 && i < 60) return 2
+const getPregunta = (i, size) => {
+    if (i < size) return 0
+    if (i >= size && i < size * 2) return 1
+    if (i >= size * 2 && i < size * 3) return 2
 }

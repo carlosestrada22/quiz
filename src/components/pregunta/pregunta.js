@@ -29,8 +29,6 @@ class Pregunta extends Component {
         console.log(this.state)
     }
     render() {
-        // this.setState({Pregunta: this.props.Pregunta.Pregunta})
-
         return (
             <div id="pregunta" className="pregunta container">
                 {
@@ -41,7 +39,6 @@ class Pregunta extends Component {
                     <div className="col s12 m12 l12 xl12">
                         <div className="card">
                             <div className="card-image">
-                                <img src="images/sample-1.jpg" />
                                 <span className="card-title"></span>
                             </div>
                             <div className="card-content">
@@ -79,13 +76,15 @@ const IconoRespuesta = ({ cadena, Valor, referencia }) => {
 const Begin = (ref, valor) => {
     Aumentar(ref, valor)
     ref.setState({ Questions: ref.props.Preguntas, Bandera: true })
-    console.log(ref)
 }
 const Aumentar = (ref, Valor) => {
     if (ref.state.Questions.length) {
+        if (ref.state.Actual.Pregunta) {
+            ref.state.Questions[0].Respuesta = Valor
+        }
         ref.setState({
             Actual: ref.state.Questions.shift(),
-            Respuestas: []
+            Respuestas: ref.state.Respuestas.concat(ref.state.Questions[0])
         })
     } else {
         if (ref.state.Bandera) {
