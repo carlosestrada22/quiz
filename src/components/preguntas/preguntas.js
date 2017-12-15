@@ -14,7 +14,7 @@ class Preguntas extends Component {
         }
     }
     componentDidMount() {
-        this.props.axios.get(`http://${window.location.hostname}:3008/questions`)
+        this.props.axios.get(`${window.location.protocol}//${window.location.hostname}:3008/questions`)
             .then(res => {
                 this.setState({Questions: res.data})
                 // console.log(this.state.Questions)

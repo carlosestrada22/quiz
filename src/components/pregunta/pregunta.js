@@ -92,7 +92,5 @@ const Aumentar = (ref, Valor) => {
         }
     }
 }
-const responder = (ref, res) => {
-    // ref.state.Respuestas.add(ref.state.Actual)
-}
+
 export default Pregunta

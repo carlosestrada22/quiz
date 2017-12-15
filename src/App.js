@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import $ from 'jquery'
 import Navbar from './components/navbar/navbar.js';
-import Sidenav from './components/sidenav/sidenav.js';
-import Preloader from './components/preloader/preloader.js'
+// import Preloader from './components/preloader/preloader.js'
 import Preguntas from './components/preguntas/preguntas.js'
 import axios from 'axios'
 import './App.css';
@@ -26,7 +25,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Preloader /> */}
         <Navbar $={$} reRender={""} Axios={axios} PerfilFb={this.state.PerfilFb} />
         <Controlador name={this.state.PerfilFb.name} referencia={this} />
         <div id="login-btn" className={isLoggedIn(this)}>
@@ -42,28 +40,16 @@ class App extends Component {
   }
 }
 const isLoggedIn = (ref) => {
-  // console.log(ref.state.PerfilFb.name, "*********");
   return ref.state.PerfilFb.name ? "hide" : "show"
 }
 const responseFacebook = (response, referencia) => {
   referencia.setState({ PerfilFb: response })
-  // console.log(referencia.state.PerfilFb, "logeado");
-  // console.log(FacebookLogin)
 }
 
 const Controlador = ({ name, referencia }) => {
-  const isLoggedIn = name;
-  // console.log(props, referencia)
   if (name) {
     return <Preguntas $={$} cambiarVista={referencia.CambiarVista} axios={axios}/>;
   }
   return <div></div>
-  // return <FacebookLogin
-  //   appId="127302757926876"
-  //   autoLoad={true}
-  //   fields="name,email,picture"
-  //   // onClick={componentClicked}
-  //   ref={referencia}
-  //   callback={(res) => responseFacebook(res, referencia)} />
 }
 export default App;
