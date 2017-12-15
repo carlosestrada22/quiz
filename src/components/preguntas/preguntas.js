@@ -16,14 +16,19 @@ class Preguntas extends Component {
     componentDidMount() {
         this.props.axios.get(`${window.location.protocol}//${window.location.hostname}:3008/questions`)
             .then(res => {
-                this.setState({Questions: res.data})
+                this.setState({ Questions: res.data })
                 // console.log(this.state.Questions)
             })
     }
     render() {
         return (
             <div id="preguntas" className="preguntas">
-                <Pregunta Preguntas={this.state.Questions} $={this.props.$} cambiarVista={this.props.cambiarVista} />
+                <Pregunta Preguntas={this.state.Questions}
+                    $={this.props.$}
+                    cambiarVista={this.props.cambiarVista}
+                    axios={this.props.axios}
+                    User={this.props.User}
+                    />
             </div>
         )
     }

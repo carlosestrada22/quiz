@@ -89,8 +89,20 @@ const Aumentar = (ref, Valor) => {
         if (ref.state.Bandera) {
             document.querySelector("#row-preguntas").classList.add("hide")
             ref.setState({ EnCurso: 2 })
+            
         }
+        responder(ref)
     }
+    console.log(ref.state.Questions, ref.state.Respuestas)
 }
 
+const responder = (ref) => {
+    console.log("responiendo")
+    ref.props.axios.post(`${window.location.protocol}//${window.location.hostname}:3008/answers`, {
+        Respuestas: ref.state.Respuestas,
+        User: ref.props.User
+    }).then(res => {
+        console.log(res)
+    })
+}
 export default Pregunta

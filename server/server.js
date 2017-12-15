@@ -2,27 +2,47 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 const cors = require('cors')
+const bodyParser = require('body-parser')
+// ******Actualmente solo soporta 3 pregutnas*****
 
+// Archivos con las preguntas y las palabras
 const words = JSON.parse(fs.readFileSync('words.json'))
 const questions = JSON.parse(fs.readFileSync('questions.json'))
-app.use(cors())
 
+// Numero de pregutnas a enviar al cliente
+const numberOfQuestions = 2
+
+app.use(cors())
+app.use(bodyParser.json())
+
+// Para verificar el server
 app.get('/', (req, res) => {
     res.sendStatus(200)
 })
 
+// Regresa las preguntas
 app.get('/questions', (req, res) => {
-    res.send(getRndQuestions(3))
+    res.send(getRndQuestions(numberOfQuestions))
 })
 
+// Responde las preguntas
+app.post('/answers', (req, res) => {
+    res.send(req.body)
+    fs.writeFileSync(`dump_${req.body.User.id}.txt`, JSON.stringify(req.body, null, '\t'), err => {
+        if (err) throw err;
+        console.log('File saved!');
+    })
+})
+
+// por default en el puerto 3008 para que el cliente corra en el 3000
 app.listen(3008, () => {
     console.log("listening", questions)
 })
 
-const getRndInteger = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// Genera un entero positivo aleatorio
+const getRndInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+// Selecciona palabras aleatorias del archivo
 const getRndWords = size => {
     let newWords = []
     for (let i = 0; i < size; i++) {
@@ -31,6 +51,7 @@ const getRndWords = size => {
     return newWords
 }
 
+// cada palabra se le asigna a cada pregunta
 const getRndQuestions = size => {
     let wordAux = getRndWords(size)
     let newWords = []

@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar $={$} reRender={""} Axios={axios} PerfilFb={this.state.PerfilFb} />
-        <Controlador name={this.state.PerfilFb.name} referencia={this} />
+        <Controlador name={this.state.PerfilFb.name} referencia={this} User={this.state.PerfilFb}/>
         <div id="login-btn" className={isLoggedIn(this)}>
           <FacebookLogin
             appId="127302757926876"
@@ -46,9 +46,9 @@ const responseFacebook = (response, referencia) => {
   referencia.setState({ PerfilFb: response })
 }
 
-const Controlador = ({ name, referencia }) => {
+const Controlador = ({ name, referencia, User }) => {
   if (name) {
-    return <Preguntas $={$} cambiarVista={referencia.CambiarVista} axios={axios}/>;
+    return <Preguntas $={$} cambiarVista={referencia.CambiarVista} axios={axios} User={User}/>;
   }
   return <div></div>
 }
