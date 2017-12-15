@@ -18,7 +18,8 @@ class Pregunta extends Component {
                 Palabra: ""
             },
             EnCurso: 0,
-            Bandera: false
+            Bandera: false,
+            Respuestas: []
 
         }
     }
@@ -35,7 +36,7 @@ class Pregunta extends Component {
                 {
                     this.state.EnCurso === 2 ? <Resultado $={this.props.$} /> : ""
                 }
-                <ModalInicial $={this.props.$} Iniciar={Aumentar} referencia={this} flag={this.state.Bandera} />
+                <ModalInicial $={this.props.$} Iniciar={Begin} referencia={this} flag={this.state.Bandera} />
                 <div className="row" id="row-preguntas">
                     <div className="col s12 m12 l12 xl12">
                         <div className="card">
@@ -77,15 +78,23 @@ const IconoRespuesta = ({ cadena, Valor, referencia }) => {
 }
 const Begin = (ref, valor) => {
     Aumentar(ref, valor)
+    ref.setState({ Questions: ref.props.Preguntas, Bandera: true })
+    console.log(ref)
 }
 const Aumentar = (ref, Valor) => {
     if (ref.state.Questions.length) {
-        ref.setState({ Actual: ref.state.Questions.shift() })
+        ref.setState({
+            Actual: ref.state.Questions.shift(),
+            Respuestas: []
+        })
     } else {
         if (ref.state.Bandera) {
             document.querySelector("#row-preguntas").classList.add("hide")
             ref.setState({ EnCurso: 2 })
         }
     }
+}
+const responder = (ref, res) => {
+    // ref.state.Respuestas.add(ref.state.Actual)
 }
 export default Pregunta
