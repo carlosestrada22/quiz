@@ -27,22 +27,43 @@ class App extends Component {
     return (
       <div className="App">
         {/* <Preloader /> */}
-        <Navbar $={$} reRender={""} Axios={axios} PerfilFb={this.state.PerfilFb}/>
-        <Preguntas $={$} cambiarVista={this.CambiarVista} />
-        <FacebookLogin
-          appId="127302757926876"
-          autoLoad={true}
-          fields="name,email,picture"
-          // onClick={componentClicked}
-          ref={this}
-          callback={(res) => responseFacebook(res, this)} />
+        <Navbar $={$} reRender={""} Axios={axios} PerfilFb={this.state.PerfilFb} />
+        <Controlador name={this.state.PerfilFb.name} referencia={this} />
+        <div id="login-btn" className={isLoggedIn(this)}>
+          <FacebookLogin
+            appId="127302757926876"
+            autoLoad={true}
+            fields="name,email,picture"
+            ref={this}
+            callback={(res) => responseFacebook(res, this)} />
+        </div>
       </div>
     );
   }
 }
-
+const isLoggedIn = (ref) => {
+  // console.log(ref.state.PerfilFb.name, "*********");
+  return ref.state.PerfilFb.name ? "hide" : "show"
+}
 const responseFacebook = (response, referencia) => {
   referencia.setState({ PerfilFb: response })
-  console.log(referencia.state.PerfilFb);
+  // console.log(referencia.state.PerfilFb, "logeado");
+  // console.log(FacebookLogin)
+}
+
+const Controlador = ({ name, referencia }) => {
+  const isLoggedIn = name;
+  // console.log(props, referencia)
+  if (name) {
+    return <Preguntas $={$} cambiarVista={referencia.CambiarVista} axios={axios}/>;
+  }
+  return <div></div>
+  // return <FacebookLogin
+  //   appId="127302757926876"
+  //   autoLoad={true}
+  //   fields="name,email,picture"
+  //   // onClick={componentClicked}
+  //   ref={referencia}
+  //   callback={(res) => responseFacebook(res, referencia)} />
 }
 export default App;

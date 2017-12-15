@@ -1,12 +1,18 @@
 .btn-responder {
-    /* margin: 0 10px 0 10px; */
+    margin: 10px;
 }
-.container-botones{
+
+.container-botones {
     margin: auto;
 }
+
 .pregunta {
     /* top: 50%;
     left: 50%;
     margin: auto;
     position: fixed; */
+}
+
+.botones-responder {
+    display: inline-block;
 }

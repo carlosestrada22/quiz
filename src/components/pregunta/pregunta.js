@@ -17,7 +17,8 @@ class Pregunta extends Component {
                 Pregunta: "",
                 Palabra: ""
             },
-            EnCurso: 0
+            EnCurso: 0,
+            Bandera: false
 
         }
     }
@@ -32,9 +33,9 @@ class Pregunta extends Component {
         return (
             <div id="pregunta" className="pregunta container">
                 {
-                    this.state.EnCurso === 2 ? <Resultado $={this.props.$}/> : ""
+                    this.state.EnCurso === 2 ? <Resultado $={this.props.$} /> : ""
                 }
-                <ModalInicial $={this.props.$} Iniciar={Aumentar} referencia={this} />
+                <ModalInicial $={this.props.$} Iniciar={Aumentar} referencia={this} flag={this.state.Bandera} />
                 <div className="row" id="row-preguntas">
                     <div className="col s12 m12 l12 xl12">
                         <div className="card">
@@ -50,7 +51,7 @@ class Pregunta extends Component {
                             </div>
                             <div className="card-action">
                                 <div className="row">
-                                    <div className="col s12 m12 l12 xl12">
+                                    <div className="col s12 m12 l12 xl12 botones-responder">
                                         <IconoRespuesta cadena={"sentiment_very_dissatisfied"} Valor={1} referencia={this} />
                                         <IconoRespuesta cadena={"sentiment_dissatisfied"} Valor={2} referencia={this} />
                                         <IconoRespuesta cadena={"sentiment_neutral"} Valor={3} referencia={this} />
@@ -69,23 +70,22 @@ class Pregunta extends Component {
 
 const IconoRespuesta = ({ cadena, Valor, referencia }) => {
     return (
-        <div onClick={() => Aumentar(referencia, Valor)} className="col s2">
-            <a className="waves-effect waves-light btn btn-large btn-responder">
-                <i className="material-icons large">{cadena.toString()}</i>
-            </a>
-        </div>
+        <a onClick={() => Aumentar(referencia, Valor)} className="waves-effect waves-light btn btn-large btn-responder">
+            <i className="material-icons large">{cadena.toString()}</i>
+        </a>
     )
 }
-
+const Begin = (ref, valor) => {
+    Aumentar(ref, valor)
+}
 const Aumentar = (ref, Valor) => {
-    console.log(ref.state.Actual, Valor)
     if (ref.state.Questions.length) {
-        console.log(ref.state)
         ref.setState({ Actual: ref.state.Questions.shift() })
     } else {
-        console.log("final", ref)
-        document.querySelector("#row-preguntas").classList.add("hide")
-        ref.setState({ EnCurso: 2 })
+        if (ref.state.Bandera) {
+            document.querySelector("#row-preguntas").classList.add("hide")
+            ref.setState({ EnCurso: 2 })
+        }
     }
 }
 export default Pregunta

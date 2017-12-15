@@ -44,34 +44,36 @@ class Preguntas extends Component {
             Actual: {
                 Pregunta: "",
                 Palabra: ""
-            }
+            },
+            Questions: []
         }
     }
     componentDidMount() {
+        this.props.axios.get(`http://${window.location.hostname}:3008/questions`)
+            .then(res => {
+                // console.log(res)
+                this.setState({Questions: res.data})
 
+                console.log(this.state.Questions)
+            })
     }
     render() {
         return (
             <div id="preguntas" className="preguntas">
-                {
-                    Questions.map(x => {
-                        console.log(x)
-                    })
-                }
-                <Pregunta Preguntas={Questions} Avanzar={Avanzar} $={this.props.$} cambiarVista={this.props.cambiarVista}/>
+                <Pregunta Preguntas={this.state.Questions} Avanzar={() => Avanzar(this)} $={this.props.$} cambiarVista={this.props.cambiarVista} />
             </div>
         )
     }
 }
 
-const Avanzar = () => {
-    console.log(Index, Questions.length)
-    if (Index < Questions.length - 1)
+const Avanzar = (ref) => {
+    // console.log(Index, Questions.length)
+    if (Index < ref.state.Questions.length - 1)
         Index++
 
     // this.setState({Actual : Questions[Index]})
-    ActualPregunta = Questions[Index]
-    console.log("AVANZANDO ALV", ActualPregunta)
+    ActualPregunta = ref.state.Questions[Index]
+    // console.log("AVANZANDO ALV", ActualPregunta)
 }
 
 export default Preguntas

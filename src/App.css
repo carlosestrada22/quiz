@@ -26,3 +26,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+#login-btn{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -101px;
+  margin-top: -32.5px;
+
+}
