@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './pregunta.css'
 import ModalInicial from '../modal-inicial/modal-inicial.js'
 import Resultado from '../results/results.js'
-// import ModalInicial from '..'
+
 class Pregunta extends Component {
     constructor(props) {
         super(props)
@@ -19,19 +19,23 @@ class Pregunta extends Component {
             },
             EnCurso: 0,
             Bandera: false,
-            Respuestas: []
+            Respuestas: [],
+            Indicador: ""
 
         }
     }
     componentDidMount() {
         this.setState({ Questions: this.props.Preguntas })
         this.setState({ Actual: this.state.Questions.shift() })
+        // console.log(this.props.$)    
+        this.props.$('.tooltipped').tooltip({ delay: 50 });
+
     }
     render() {
         return (
             <div id="pregunta" className="pregunta container">
                 {
-                    this.state.EnCurso === 2 ? <Resultado $={this.props.$} /> : ""
+                    this.state.EnCurso === 2 ? <Resultado $={this.props.$} Indicador={this.state.Indicador}/> : ""
                 }
                 <ModalInicial $={this.props.$} Iniciar={Begin} referencia={this} flag={this.state.Bandera} />
                 <div className="row" id="row-preguntas">
@@ -67,14 +71,40 @@ class Pregunta extends Component {
 
 const IconoRespuesta = ({ cadena, Valor, referencia }) => {
     return (
-        <a onClick={() => Aumentar(referencia, Valor)} className="waves-effect waves-light btn btn-large btn-responder">
+        <a id={`responder-${Valor}`}
+            onClick={() => Aumentar(referencia, Valor)}
+            className="waves-effect waves-light btn btn-large btn-responder tooltipped"
+            data-position="bottom" data-delay="50" data-tooltip={getTooltip(Valor)}>
             <i className="material-icons large">{cadena.toString()}</i>
         </a>
     )
 }
+const getTooltip = valor => {
+    switch (valor) {
+        default:
+            return ""
+            break;
+        case 1:
+            return "Muy poca"
+            break;
+        case 2:
+            return "Poca"
+            break;
+        case 3:
+            return "neutral"
+            break;
+        case 4:
+            return "Mucha"
+            break;
+        case 5:
+            return "Demasiada"
+            break;
+    }
+}
 const Begin = (ref, valor) => {
     Aumentar(ref, valor)
     ref.setState({ Questions: ref.props.Preguntas, Bandera: true })
+    ref.props.$('#responder-1')[0].click()
 }
 const Aumentar = (ref, Valor) => {
     if (ref.state.Questions.length) {
@@ -89,19 +119,17 @@ const Aumentar = (ref, Valor) => {
         if (ref.state.Bandera) {
             document.querySelector("#row-preguntas").classList.add("hide")
             ref.setState({ EnCurso: 2 })
-            
+            responder(ref)
         }
-        responder(ref)
     }
-    console.log(ref.state.Questions, ref.state.Respuestas)
 }
 
 const responder = (ref) => {
-    console.log("responiendo")
     ref.props.axios.post(`${window.location.protocol}//${window.location.hostname}:3008/answers`, {
         Respuestas: ref.state.Respuestas,
         User: ref.props.User
     }).then(res => {
+        ref.setState({Indicador: res.data.toString()})
         console.log(res)
     })
 }
