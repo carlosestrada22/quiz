@@ -1,3 +1,12 @@
+# api-quiz
+Backend para la aplicación de encuestas.
+## Instalación
+```
+git clone https://github.com/carlosestrada22/quiz.git
+cd quiz
+npm start
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
