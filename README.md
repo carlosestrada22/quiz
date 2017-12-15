@@ -7,7 +7,7 @@ cd quiz
 npm start
 ```
 ## Backend
-[API-Quiz]: https://github.com/carlosestrada22/api-quiz.git
+<https://github.com/carlosestrada22/api-quiz.git>
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
