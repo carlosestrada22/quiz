@@ -5,6 +5,7 @@ import Navbar from './components/navbar/navbar.js';
 import Sidenav from './components/sidenav/sidenav.js';
 import Preloader from './components/preloader/preloader.js'
 import Preguntas from './components/preguntas/preguntas.js'
+import axios from 'axios'
 import './App.css';
 import 'materialize-css/dist/css/materialize.css';
 import 'materialize-css/dist/js/materialize.js';
@@ -28,7 +29,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* <Preloader /> */}
-        <Navbar $={$} reRender={""} />
+        <Navbar $={$} reRender={""} Axios={axios}/>
         <Preguntas $={$} cambiarVista={this.CambiarVista} />
       </div>
     );

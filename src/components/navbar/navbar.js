@@ -14,9 +14,9 @@ class Navbar extends Component {
             <div id="navbar" className="navbar ">
                 <ul id="dropdown1" className="dropdown-content">
                     <li><a href="#!" onClick={this.props.reRender}>Reiniciar</a></li>
-                    <li><a href="#!">two</a></li>
+                    <li><a href="#!" onClick={() => nuevaVentana(this.props.Axios)}>facebook</a></li>
                     <li className="divider"></li>
-                    <li><a href="#!">three</a></li>
+                    <li><a href="#!" onClick={() => loguear(this.props.Axios)}>Axios</a></li>
                 </ul>
                 <nav className="blue darken-3">
                     <div className="nav-wrapper">
@@ -38,5 +38,17 @@ class Navbar extends Component {
         )
     }
 }
+const loguear = (axios) => {
+    axios.get(`http://${window.location.hostname}:3000/test`)
+        .then(res => {
+            console.log(res)
+        });
+}
 
+const nuevaVentana = (axios) => {
+    axios.get(`http://${window.location.hostname}:3000/auth/facebook`)
+        .then(res => {
+            console.log(res)
+        });
+}
 export default Navbar
